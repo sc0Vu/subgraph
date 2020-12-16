@@ -26,15 +26,16 @@ func NewUniswapV2Client(token string) (uniCli UniswapV2Client) {
 }
 
 // Bundles returns the price of eth
-func (uniCli *UniswapV2Client) Bundles(ctx context.Context, id int) (ethPrice float64, err error) {
+func (uniCli *UniswapV2Client) Bundles(ctx context.Context, id, bn int) (ethPrice float64, err error) {
 	var query struct {
 		Bundle struct {
 			ID       graphql.ID
 			EthPrice graphql.String
-		} `graphql:"bundle(id: $id)"`
+		} `graphql:"bundle(id: $id, block:{number: $bn})"`
 	}
 	variables := map[string]interface{}{
 		"id": graphql.Int(id),
+		"bn": graphql.Int(bn),
 	}
 	err = uniCli.c.Query(ctx, &query, variables)
 	if err != nil {

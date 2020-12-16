@@ -8,7 +8,7 @@ import (
 
 func main() {
 	cli := uniswapv2.NewUniswapV2Client("zzz")
-	ethPrice, err := cli.Bundles(context.TODO(), 1)
+	ethPrice, err := cli.Bundles(context.TODO(), 1, 11411111)
 	if err != nil {
 		fmt.Println(err)
 		return
