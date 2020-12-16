@@ -61,3 +61,37 @@ func (uniCli *UniswapV2Client) Bundles(ctx context.Context, id int) (ethPrice fl
 	}
 	return
 }
+
+// PairsWithBN returns the pair in uniswap of given address and block number
+func (uniCli *UniswapV2Client) PairsWithBN(ctx context.Context, id string, bn int) (pair Pair, err error) {
+	var query struct {
+		Pair Pair `graphql:"pair(id: $id, where:{id: $pairID}, block:{number: $bn})"`
+	}
+	variables := map[string]interface{}{
+		"id":     graphql.String(id),
+		"pairID": graphql.String(id),
+		"bn":     graphql.Int(bn),
+	}
+	err = uniCli.c.Query(ctx, &query, variables)
+	if err != nil {
+		return
+	}
+	pair = query.Pair
+	return
+}
+
+// PairsWithBN returns the pair in uniswap of given address
+func (uniCli *UniswapV2Client) Pairs(ctx context.Context, id string) (pair Pair, err error) {
+	var query struct {
+		Pair Pair `graphql:"pair(id: $id, where:{id: $id})"`
+	}
+	variables := map[string]interface{}{
+		"id": graphql.String(id),
+	}
+	err = uniCli.c.Query(ctx, &query, variables)
+	if err != nil {
+		return
+	}
+	pair = query.Pair
+	return
+}
