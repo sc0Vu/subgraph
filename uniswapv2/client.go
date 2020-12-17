@@ -8,7 +8,6 @@ import (
 
 const endpoint = "https://api.thegraph.com/subgraphs/name/uniswap/uniswap-v2"
 
-// TODO: add token
 // TODO: remove reflect usage?
 // TODO: big decima type in case of precision?
 
