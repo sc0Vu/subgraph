@@ -46,4 +46,6 @@ type Pair struct {
 	CreatedAtTimestamp     graphql.String `graphql:"createdAtTimestamp"`
 	CreatedAtBlockNumber   graphql.String `graphql:"createdAtBlockNumber"`
 	LiquidityProviderCount graphql.String
+	Reserve0               graphql.String
+	Reserve1               graphql.String
 }
