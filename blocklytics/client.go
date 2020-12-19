@@ -52,3 +52,32 @@ func (bl *BlocklyticsClient) Blocks(ctx context.Context, count, skip, bn int, or
 	blocks = query.Blocks
 	return
 }
+
+// BlocksByTimestamp query of blocks by given query, the order should looks like [column asc|desc]
+func (bl *BlocklyticsClient) BlocksByTimestamp(ctx context.Context, count, skip, timestamp int, order string) (blocks []Block, err error) {
+	pOrder := strings.Split(order, " ")
+	if len(pOrder) != 2 {
+		err = fmt.Errorf("the order should looks like [column asc|desc]")
+		return
+	}
+	if pOrder[1] != "asc" && pOrder[1] != "desc" {
+		err = fmt.Errorf("the order direction should be one of asc or desc")
+		return
+	}
+	var query struct {
+		Blocks []Block `graphql:"blocks(id: 1, first: $count, skip: $skip, orderBy: $orderBy, orderDirection: $orderDir, where: {timestamp_gt: $timestamp})"`
+	}
+	variables := map[string]interface{}{
+		"count":     graphql.Int(count),
+		"skip":      graphql.Int(skip),
+		"timestamp": graphql.Int(timestamp),
+		"orderBy":   graphql.String(pOrder[0]),
+		"orderDir":  graphql.String(pOrder[1]),
+	}
+	err = bl.c.Query(ctx, &query, variables)
+	if err != nil {
+		return
+	}
+	blocks = query.Blocks
+	return
+}
