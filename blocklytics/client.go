@@ -65,14 +65,15 @@ func (bl *BlocklyticsClient) BlocksByTimestamp(ctx context.Context, count, skip,
 		return
 	}
 	var query struct {
-		Blocks []Block `graphql:"blocks(id: 1, first: $count, skip: $skip, orderBy: $orderBy, orderDirection: $orderDir, where: {timestamp_gt: $timestamp})"`
+		Blocks []Block `graphql:"blocks(id: 1, first: $count, skip: $skip, orderBy: $orderBy, orderDirection: $orderDir, where: {timestamp_gt: $timestampFrom, timestamp_lt: $timestampTo})"`
 	}
 	variables := map[string]interface{}{
-		"count":     graphql.Int(count),
-		"skip":      graphql.Int(skip),
-		"timestamp": graphql.Int(timestamp),
-		"orderBy":   graphql.String(pOrder[0]),
-		"orderDir":  graphql.String(pOrder[1]),
+		"count":         graphql.Int(count),
+		"skip":          graphql.Int(skip),
+		"timestampFrom": graphql.Int(timestamp),
+		"timestampTo":   graphql.Int(timestamp + 600),
+		"orderBy":       graphql.String(pOrder[0]),
+		"orderDir":      graphql.String(pOrder[1]),
 	}
 	err = bl.c.Query(ctx, &query, variables)
 	if err != nil {
