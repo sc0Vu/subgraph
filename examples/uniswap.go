@@ -20,7 +20,10 @@ func fetchBlockNumber(token string) (int64, error) {
 	if err != nil {
 		return 0, err
 	}
-	return strconv.ParseInt(string(blocks[0].Number), 10, 64)
+	if len(blocks) <= 0 {
+		return 0, fmt.Errorf("couldn't find any block")
+	}
+	return blocks[0].Number.Int.Int64(), nil
 }
 
 func main() {

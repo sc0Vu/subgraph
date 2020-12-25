@@ -3,7 +3,7 @@ package blocklytics
 import (
 	"context"
 	"fmt"
-	"github.com/shurcooL/graphql"
+	"github.com/sc0Vu/graphql"
 	"strings"
 )
 

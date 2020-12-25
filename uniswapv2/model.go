@@ -1,7 +1,7 @@
 package uniswapv2
 
 import (
-	"github.com/shurcooL/graphql"
+	"github.com/sc0Vu/graphql"
 )
 
 // Bundle represent graphql model of Bundle

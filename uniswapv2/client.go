@@ -2,7 +2,7 @@ package uniswapv2
 
 import (
 	"context"
-	"github.com/shurcooL/graphql"
+	"github.com/sc0Vu/graphql"
 	"strconv"
 )
 
