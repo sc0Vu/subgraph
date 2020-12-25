@@ -2,7 +2,6 @@ package blocklytics
 
 import (
 	"context"
-	"strconv"
 	"testing"
 	"time"
 )
@@ -33,10 +32,7 @@ func TestBlocks(t *testing.T) {
 		t.Fatalf("Should fetch 10 blocks")
 	}
 	for _, block := range blocks {
-		number, err := strconv.ParseInt(string(block.Number), 10, 64)
-		if err != nil {
-			t.Fatal(err)
-		}
+		number := int(block.Number.Int.Int64())
 		if number < targetBN {
 			t.Fatalf("Should fetch blocks that block number greater than %d", targetBN)
 		}
@@ -57,10 +53,7 @@ func TestBlocksByTimestamp(t *testing.T) {
 		t.Fatalf("Should fetch 10 blocks")
 	}
 	for _, block := range blocks {
-		timestamp, err := strconv.ParseInt(string(block.Timestamp), 10, 64)
-		if err != nil {
-			t.Fatal(err)
-		}
+		timestamp := int(block.Timestamp.Int.Int64())
 		if int(timestamp) < targetTP {
 			t.Fatalf("Should fetch blocks that block number greater than %d", targetTP)
 		}
