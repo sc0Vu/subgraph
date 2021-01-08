@@ -16,7 +16,6 @@ lint:
 
 .PHONY: seccheck
 seccheck:
-	go vet ./...
 	GO111MODULE=on go get github.com/securego/gosec/v2/cmd/gosec
 	$(GOPATH)/bin/gosec $(TESTS)
 
