@@ -3,11 +3,12 @@ package main
 import (
 	"context"
 	"fmt"
-	"github.com/sc0Vu/subgraph/blocklytics"
-	"github.com/sc0Vu/subgraph/uniswapv2"
 	"os"
 	"strconv"
 	"time"
+
+	"github.com/sc0Vu/subgraph/blocklytics"
+	"github.com/sc0Vu/subgraph/uniswapv2"
 )
 
 const dayseconds = 86400
@@ -55,7 +56,7 @@ func main() {
 		return
 	}
 	// fmt.Printf("Pair information in %d: %+v\n", bn, pair)
-	pairNow, err := cli.Pairs(context.TODO(), "0xb6a0d0406772ac3472dc3d9b7a2ba4ab04286891")
+	pairNow, err := cli.Pairs(context.TODO(), pairAddress)
 	if err != nil {
 		fmt.Println(err)
 		return
