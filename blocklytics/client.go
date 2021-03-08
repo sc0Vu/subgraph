@@ -17,7 +17,7 @@ type BlocklyticsClient struct {
 // TODO: fix id: 1
 // TODO: query maker?
 
-// NewClient returns Blocklytics
+// NewBlocklyticsClient returns Blocklytics
 func NewBlocklyticsClient(token string) (bl BlocklyticsClient) {
 	bl.c = graphql.NewClient(endpoint, nil)
 	bl.token = token

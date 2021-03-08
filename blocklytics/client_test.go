@@ -10,8 +10,8 @@ const (
 	targetBN = 11111111
 )
 
-func newClient() (uniCli BlocklyticsClient) {
-	uniCli = NewBlocklyticsClient("")
+func newClient() (cli BlocklyticsClient) {
+	cli = NewBlocklyticsClient("")
 	return
 }
 

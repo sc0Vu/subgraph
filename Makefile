@@ -1,23 +1,18 @@
-TESTS= $(shell go list ./...)
 GOPATH= $(shell go env GOPATH)
 
 .PHONY: default
-default: lint seccheck test clean
-
-.PHONY: test
-test:
-	go test -race $(TESTS)
+default: lint test clean
 
 .PHONY: lint
 lint:
-	go vet $(TESTS)
-	GO111MODULE=on go get honnef.co/go/tools/cmd/staticcheck@2020.1.3
-	$(GOPATH)/bin/staticcheck -go 1.15 $(TESTS)
+	go get github.com/golangci/golangci-lint/cmd/golangci-lint@v1.37.0
+	$(GOPATH)/bin/golangci-lint run -e gosec ./...
+	go fmt ./...
 
-.PHONY: seccheck
-seccheck:
-	GO111MODULE=on go get github.com/securego/gosec/v2/cmd/gosec
-	$(GOPATH)/bin/gosec $(TESTS)
+.PHONY: test
+test: 
+	go test --race ./...
+
 
 .PHONY: clean
 clean:
