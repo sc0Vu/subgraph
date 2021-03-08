@@ -10,6 +10,8 @@ const (
 	bundleID = 1
 	// test pair id for WBTC-ETH
 	pairID = "0xbb2b8038a1640196fbe3e38816f3e67cba72d940"
+	// test token id for uniswap
+	tokenID = "0x1f9840a85d5af5bf1d1762f925bdaddc4201f984"
 )
 
 func newClient() (uniCli UniswapV2Client) {
@@ -42,6 +44,32 @@ func TestBundles(t *testing.T) {
 	}
 	if ethPriceNow == ethPriceOld {
 		t.Fatalf("Eth price old should not be the same with eth price now")
+	}
+}
+
+// TestTokens test subgraph tokens api
+func TestTokens(t *testing.T) {
+	c := newClient()
+	ctx := newCtx()
+	tokenNow, err := c.Tokens(ctx, tokenID)
+	if err != nil {
+		t.Fatal(err)
+	}
+	if tokenNow.ID != tokenID {
+		t.Fatalf("Token ID not equal")
+	}
+	tokenOld, err := c.TokensWithBN(ctx, tokenID, targetBN)
+	if err != nil {
+		t.Fatal(err)
+	}
+	if tokenOld.ID != tokenID {
+		t.Fatalf("Token ID not equal")
+	}
+	if tokenNow.Name != tokenOld.Name {
+		t.Fatalf("Tokens name not equal")
+	}
+	if tokenNow.Symbol != tokenOld.Symbol {
+		t.Fatalf("Tokens symbol not equal")
 	}
 }
 

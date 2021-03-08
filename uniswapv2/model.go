@@ -10,35 +10,26 @@ type Bundle struct {
 	EthPrice graphql.String
 }
 
+// Token represent graph model of token
+type Token struct {
+	ID                 graphql.ID
+	Symbol             graphql.String
+	Name               graphql.String
+	Decimals           graphql.String
+	TotalSupply        graphql.String
+	TradeVolume        graphql.String
+	TradeVolumeUSD     graphql.String `graphql:"tradeVolumeUSD"`
+	UntrackedVolumeUSD graphql.String `graphql:"untrackedVolumeUSD"`
+	TXCount            graphql.String
+	TotalLiquidity     graphql.String
+	DerivedETH         graphql.String `graphql:"derivedETH"`
+}
+
 // Pair represent graphql model of Pair
 type Pair struct {
-	ID     graphql.ID
-	Token0 struct {
-		ID                 graphql.ID
-		Symbol             graphql.String
-		Name               graphql.String
-		Decimals           graphql.String
-		TotalSupply        graphql.String
-		TradeVolume        graphql.String
-		TradeVolumeUSD     graphql.String `graphql:"tradeVolumeUSD"`
-		UntrackedVolumeUSD graphql.String `graphql:"untrackedVolumeUSD"`
-		TXCount            graphql.String
-		TotalLiquidity     graphql.String
-		DerivedETH         graphql.String `graphql:"derivedETH"`
-	}
-	Token1 struct {
-		ID                 graphql.ID
-		Symbol             graphql.String
-		Name               graphql.String
-		Decimals           graphql.String
-		TotalSupply        graphql.String
-		TradeVolume        graphql.String
-		TradeVolumeUSD     graphql.String `graphql:"tradeVolumeUSD"`
-		UntrackedVolumeUSD graphql.String `graphql:"untrackedVolumeUSD"`
-		TXCount            graphql.String
-		TotalLiquidity     graphql.String
-		DerivedETH         graphql.String `graphql:"derivedETH"`
-	}
+	ID                     graphql.ID
+	Token0                 Token
+	Token1                 Token
 	TrackedReserveETH      graphql.String `graphql:"trackedReserveETH"`
 	VolumeUSD              graphql.String `graphql:"volumeUSD"`
 	UntrackedVolumeUSD     graphql.String `graphql:"untrackedVolumeUSD"`
