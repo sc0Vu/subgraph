@@ -6,15 +6,15 @@ import (
 )
 
 const (
-	targetBN = 11111111
-	bundleID = 1
+	targetV2BN = 11111111
+	bundleID   = 1
 	// test pair id for WBTC-ETH
 	pairID = "0xbb2b8038a1640196fbe3e38816f3e67cba72d940"
 	// test token id for uniswap
 	tokenID = "0x1f9840a85d5af5bf1d1762f925bdaddc4201f984"
 )
 
-func newClient() (uniCli UniswapV2Client) {
+func newV2Client() (uniCli UniswapV2Client) {
 	uniCli = NewUniswapV2Client("")
 	return
 }
@@ -26,7 +26,7 @@ func newCtx() (ctx context.Context) {
 
 // TestBundles test subgraph bundles api
 func TestBundles(t *testing.T) {
-	c := newClient()
+	c := newV2Client()
 	ctx := newCtx()
 	ethPriceNow, err := c.Bundles(ctx, bundleID)
 	if err != nil {
@@ -35,7 +35,7 @@ func TestBundles(t *testing.T) {
 	if ethPriceNow < 0 {
 		t.Fatalf("Eth price should not be zero")
 	}
-	ethPriceOld, err := c.BundlesWithBN(ctx, bundleID, targetBN)
+	ethPriceOld, err := c.BundlesWithBN(ctx, bundleID, targetV2BN)
 	if err != nil {
 		t.Fatal(err)
 	}
@@ -49,7 +49,7 @@ func TestBundles(t *testing.T) {
 
 // TestTokens test subgraph tokens api
 func TestTokens(t *testing.T) {
-	c := newClient()
+	c := newV2Client()
 	ctx := newCtx()
 	tokenNow, err := c.Tokens(ctx, tokenID)
 	if err != nil {
@@ -58,7 +58,7 @@ func TestTokens(t *testing.T) {
 	if tokenNow.ID != tokenID {
 		t.Fatalf("Token ID not equal")
 	}
-	tokenOld, err := c.TokensWithBN(ctx, tokenID, targetBN)
+	tokenOld, err := c.TokensWithBN(ctx, tokenID, targetV2BN)
 	if err != nil {
 		t.Fatal(err)
 	}
@@ -75,7 +75,7 @@ func TestTokens(t *testing.T) {
 
 // TestPairs test subgraph pairs api
 func TestPairs(t *testing.T) {
-	c := newClient()
+	c := newV2Client()
 	ctx := newCtx()
 	pairNow, err := c.Pairs(ctx, pairID)
 	if err != nil {
@@ -84,7 +84,7 @@ func TestPairs(t *testing.T) {
 	if pairNow.ID != pairID {
 		t.Fatalf("Pair ID not equal")
 	}
-	pairOld, err := c.PairsWithBN(ctx, pairID, targetBN)
+	pairOld, err := c.PairsWithBN(ctx, pairID, targetV2BN)
 	if err != nil {
 		t.Fatal(err)
 	}
