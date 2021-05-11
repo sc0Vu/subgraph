@@ -1,4 +1,4 @@
-package uniswapv2
+package uniswap
 
 import (
 	"github.com/sc0Vu/graphql"

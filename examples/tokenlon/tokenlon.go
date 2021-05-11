@@ -10,7 +10,7 @@ import (
 	"time"
 
 	"github.com/sc0Vu/subgraph/tokenlon"
-	"github.com/sc0Vu/subgraph/uniswapv2"
+	"github.com/sc0Vu/subgraph/uniswap"
 )
 
 func newTokenlonClient() (cli tokenlon.TokenlonClient) {
@@ -18,8 +18,8 @@ func newTokenlonClient() (cli tokenlon.TokenlonClient) {
 	return
 }
 
-func newUniswapV2Client() (cli uniswapv2.UniswapV2Client) {
-	cli = uniswapv2.NewUniswapV2Client("")
+func newUniswapV2Client() (cli uniswap.UniswapV2Client) {
+	cli = uniswap.NewUniswapV2Client("")
 	return
 }
 

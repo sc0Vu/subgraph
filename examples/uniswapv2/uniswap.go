@@ -8,7 +8,7 @@ import (
 	"time"
 
 	"github.com/sc0Vu/subgraph/blocklytics"
-	"github.com/sc0Vu/subgraph/uniswapv2"
+	"github.com/sc0Vu/subgraph/uniswap"
 )
 
 const dayseconds = 86400
@@ -36,7 +36,7 @@ func main() {
 		return
 	}
 	bn := int(bnI64)
-	cli := uniswapv2.NewUniswapV2Client(token)
+	cli := uniswap.NewUniswapV2Client(token)
 	ethPrice, err := cli.BundlesWithBN(context.TODO(), 1, bn)
 	if err != nil {
 		fmt.Println(err)
